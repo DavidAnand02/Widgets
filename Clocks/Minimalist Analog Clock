@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Analog Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            position: relative;
+            background: white;
+        }
+        .hand {
+            position: absolute;
+            background: #333;
+            transform-origin: 50% 100%;
+            transform: rotate(90deg);
+            transition-timing-function: steps(1);
+        }
+        .hour {
+            width: 4px;
+            height: 50px;
+            top: 50px;
+            left: 98px;
+        }
+        .minute {
+            width: 2px;
+            height: 70px;
+            top: 30px;
+            left: 99px;
+        }
+        .second {
+            width: 1px;
+            height: 90px;
+            top: 10px;
+            left: 99.5px;
+            background: red;
+        }
+        .center {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 96px;
+            left: 96px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="hand hour"></div>
+        <div class="hand minute"></div>
+        <div class="hand second"></div>
+        <div class="center"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const second = now.getSeconds() / 60;
+            const minute = (now.getMinutes() + second) / 60;
+            const hour = (now.getHours() + minute) / 12;
+
+            document.querySelector('.hour').style.transform = `rotate(${hour * 360}deg)`;
+            document.querySelector('.minute').style.transform = `rotate(${minute * 360}deg)`;
+            document.querySelector('.second').style.transform = `rotate(${second * 360}deg)`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock(); // initial call
+    </script>
+</body>
+</html>
